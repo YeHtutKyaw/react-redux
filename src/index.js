@@ -4,9 +4,27 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk'
+import promise from 'redux-promise'
+
+import rootReducer from './reducers'
+
+const store = createStore(
+  rootReducer,
+  {},
+  applyMiddleware(
+    thunk,
+    promise
+  )
+);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
