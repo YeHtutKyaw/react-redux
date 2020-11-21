@@ -16,8 +16,15 @@ export const setState = updateState => {
 export function fetchUserList() {
     return dispatch => {
         console.log('...fetchUserList')
-        let action = setState({ list: DUMMY_LIST })
-        dispatch(action)
+        //let action = setState({ list: DUMMY_LIST })
+        //dispatch(action)
+
+        let url = 'https://reqres.in/api/users'
+        fetch(url)
+          .then(res => res.json())
+          .then(json => {
+              dispatch(setState({ list: json.data, total: json.total }))
+          })
     }
 }
 
@@ -35,11 +42,3 @@ export default function(state = initialState, action) {
       return state
   }
 }
-
-// dispatch(setState({ list: [] }))
-// const url = `https://reqres.in/api/users`
-// fetch(url)
-//     .then(res => res.json())
-//     .then(json => {
-//         dispatch(setState({ list: json.data, total: json.total }))
-//     });

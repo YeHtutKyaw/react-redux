@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 class Item extends React.Component {
 
     render(){
-        const { list = [] } = this.props.app
-        const item = list[this.props.id - 1]
+        const list = this.props.list ?? []
+        const item = list.find(d => d.id === this.props.id)
 
         return (
             <li style={styles.item}> 
@@ -18,7 +18,7 @@ class Item extends React.Component {
 
 export default connect(
     state => ({
-      app: state.app
+      list: state.app.list
     }),
     {}
   )(Item)
